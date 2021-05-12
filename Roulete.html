@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/sample.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700 rel="stylesheet">
+    <title >ルーレット</title>
+</head>
+
+<body>
+    
+    <header>
+        <h1 class="title">WELCOME 禁断のルーレットへ</h1>
+        <h2 class="title2">あなたが今晩遊べるご予算は <a id="initialmoney"></a> USDです</h2>
+        <h4 class="title3">💛💛忘れられない夜をお楽しみください💛💛</h4>
+        <h3 id="finish" style="display: none;">GAME OVER</h3>
+        <form action="#">
+        <div class="gameexp">あなたが今宵遊べるのは、<a class="gamename">『4択ルーレットゲーム』</a>です</div>
+        <div class="gameexp">いくらBETしますか??  <input type="number" id="bet" class="space">USD<input type="button" class="betbtn" onclick="showMessage()" value="BET"></div>
+
+        <div class="gameexp1">BET金額 <a id="betamount">0</a>USDです</div>
+        </form>
+    </header>
+
+    <main>
+        <ul>
+            <li id="one_btn" class="btn11">1(×4)</li>
+            <li id="two_btn" class="btn12">2(×4)</li>
+            <li id="three_btn" class="btn11">3(×4)</li>
+            <li id="four_btn" class="btn12">4(×4)</li>
+            <li id="odd_btn" class="btn11">ODD(×2)</li>
+            <li id="even_btn" class="btn12">EVEN(×2)</li>
+            
+        </ul>
+        <div class="choice">あなたの出した選択肢は？「<span id="own_hands"></span>」</div>
+        
+        
+        <div class="figure">ルーレットの出した目は？「<span id="pc_hands"></span>」<a id="judgment"></a></div>
+        <div class="award">獲得賞金は？<a id="award"></a></div>
+        
+        
+    </main>
+
+    <footer></footer>
+
+    <script>
+        var initial = 1000;
+        $("#initialmoney").html(initial);
+        const showMessage = () => {
+      const textbox = document.getElementById("bet");
+      var betvalue = textbox.value;
+
+
+      //出力用のp要素にメッセージを表示
+      document.getElementById("betamount").innerHTML = betvalue;
+      return betvalue;
+    }
+        
+
+
+        
+        //自分の手が1の場合の場合分け
+        $("#one_btn").on("click",function () {
+            //自分の手
+            cview = "あなたの目は１ですね。";
+            mr = 1;
+            window.setTimeout(function(){
+                $("#own_hands").html(cview);
+                }, 0);
+            
+
+            //コンピューターの手
+            const r = Math.floor(Math.random()*4+1);
+            let view = "";
+            if(r ==1){
+                view = "1";
+            }
+            if(r ==2){
+                view = "2";
+            }
+            if(r ==3){
+                view = "3";
+            }
+            if(r ==4){
+                view = "4";
+            }
+            window.setTimeout(function(){
+                $("#pc_hands").html(view);
+                }, 1000);
+            
+            //コンピューターと自分の手による条件分岐の勝ち負け表示
+            if(r==mr){
+                result = "WIN";
+                var rate = 4;
+                var tbetvalue  = showMessage();
+            }else {
+                result = "LOSE"
+                var rate = 0;
+                var tbetvalue  = showMessage();
+               
+
+            }
+            
+            window.setTimeout(function(){
+                $("#judgment").html(result);
+                $("#judgment").css('color','red');
+                }, 1000);
+                
+            window.setTimeout(updatedmoney = () => {
+                var awardamount = rate*tbetvalue;
+                $("#award").html(rate*tbetvalue);
+                
+                  tinitial = initial - tbetvalue + awardamount;
+               return tinitial;
+    
+            },2000);
+
+            
+
+
+        window.setTimeout(function(){
+         initial = updatedmoney();
+             $("#initialmoney").html(initial)},3000);
+
+             if (initial < 0) {
+               
+          
+               $("#finish").css('display','block');
+               $("#finish").css('color','red');
+               $("#finish").css('fontSize','100px');
+               
+           }
+  
+        });
+            
+
+
+        
+        //自分の手が2の場合の場合分け
+        $("#two_btn").on("click",function () {
+            //自分の手
+            cview = "あなたの目は２ですね。";
+            mr = 2;
+            window.setTimeout(function(){
+                $("#own_hands").html(cview);
+                }, 0);
+            
+
+            //コンピューターの手
+            const r = Math.floor(Math.random()*4+1);
+            let view = "";
+            if(r ==1){
+                view = "1";
+            }
+            if(r ==2){
+                view = "2";
+            }
+            if(r ==3){
+                view = "3";
+            }
+            if(r ==4){
+                view = "4";
+            }
+            window.setTimeout(function(){
+                $("#pc_hands").html(view);
+                }, 1000);
+            
+            //コンピューターと自分の手による条件分岐の勝ち負け表示
+            if(r==mr){
+                result = "WIN";
+                var rate = 4;
+                var tbetvalue  = showMessage();
+            }else {
+                result = "LOSE"
+                var rate = 0;
+                var tbetvalue  = showMessage();
+               
+
+            }
+            
+            window.setTimeout(function(){
+                $("#judgment").html(result);
+                }, 1000);
+                
+            window.setTimeout(updatedmoney = () => {
+                var awardamount = rate*tbetvalue;
+                $("#award").html(rate*tbetvalue);
+                
+                  tinitial = initial - tbetvalue + awardamount;
+               return tinitial;
+    
+            },2000);
+
+            
+
+
+            window.setTimeout(function(){
+            initial = updatedmoney();
+             $("#initialmoney").html(initial)},3000);
+
+             if (initial < 0) {
+               
+          
+               $("#finish").css('display','block');
+               $("#finish").css('color','red');
+               $("#finish").css('fontSize','100px');
+               
+           }
+
+        });
+
+
+         //自分の手が3の場合の場合分け
+         $("#three_btn").on("click",function () {
+            //自分の手
+            cview = "あなたの目は３ですね。";
+            mr = 3;
+            window.setTimeout(function(){
+                $("#own_hands").html(cview);
+                }, 0);
+            
+
+            //コンピューターの手
+            const r = Math.floor(Math.random()*4+1);
+            let view = "";
+            if(r ==1){
+                view = "1";
+            }
+            if(r ==2){
+                view = "2";
+            }
+            if(r ==3){
+                view = "3";
+            }
+            if(r ==4){
+                view = "4";
+            }
+            window.setTimeout(function(){
+                $("#pc_hands").html(view);
+                }, 1000);
+            
+            //コンピューターと自分の手による条件分岐の勝ち負け表示
+            if(r==mr){
+                result = "WIN";
+                var rate = 4;
+                var tbetvalue  = showMessage();
+            }else {
+                result = "LOSE"
+                var rate = 0;
+                var tbetvalue  = showMessage();
+               
+
+            }
+            
+            window.setTimeout(function(){
+                $("#judgment").html(result);
+                }, 1000);
+                
+            window.setTimeout(updatedmoney = () => {
+                var awardamount = rate*tbetvalue;
+                $("#award").html(rate*tbetvalue);
+                
+                  tinitial = initial - tbetvalue + awardamount;
+               return tinitial;
+    
+            },2000);
+
+            
+
+
+            window.setTimeout(function(){
+            initial = updatedmoney();
+             $("#initialmoney").html(initial)},3000);
+
+             if (initial < 0) {
+               
+          
+               $("#finish").css('display','block');
+               $("#finish").css('color','red');
+               $("#finish").css('fontSize','100px');
+               
+           }
+        });
+
+
+        //自分の手が4の場合の場合分け
+        $("#four_btn").on("click",function () {
+            //自分の手
+            cview = "あなたの目は４ですね。";
+            mr = 4;
+            window.setTimeout(function(){
+                $("#own_hands").html(cview);
+                }, 0);
+            
+
+            //コンピューターの手
+            const r = Math.floor(Math.random()*4+1);
+            let view = "";
+            if(r ==1){
+                view = "1";
+            }
+            if(r ==2){
+                view = "2";
+            }
+            if(r ==3){
+                view = "3";
+            }
+            if(r ==4){
+                view = "4";
+            }
+            window.setTimeout(function(){
+                $("#pc_hands").html(view);
+                }, 1000);
+            
+            //コンピューターと自分の手による条件分岐の勝ち負け表示
+            if(r==mr){
+                result = "WIN";
+                var rate = 4;
+                var tbetvalue  = showMessage();
+            }else {
+                result = "LOSE"
+                var rate = 0;
+                var tbetvalue  = showMessage();
+               
+
+            }
+            
+            window.setTimeout(function(){
+                $("#judgment").html(result);
+                }, 1000);
+                
+            window.setTimeout(updatedmoney = () => {
+                var awardamount = rate*tbetvalue;
+                $("#award").html(rate*tbetvalue);
+                
+                  tinitial = initial - tbetvalue + awardamount;
+               return tinitial;
+    
+            },2000);
+
+            
+
+
+            window.setTimeout(function(){
+            initial = updatedmoney();
+             $("#initialmoney").html(initial)},3000);
+
+             if (initial < 0) {
+               
+          
+               $("#finish").css('display','block');
+               $("#finish").css('color','red');
+               $("#finish").css('fontSize','100px');
+               
+           }
+        });
+
+        //自分の手がODDの場合の場合分け
+        $("#odd_btn").on("click",function () {
+            //自分の手
+            cview = "あなたの目は奇数ですね。";
+            mr = 2;
+            window.setTimeout(function(){
+                $("#own_hands").html(cview);
+                }, 0);
+            
+
+            //コンピューターの手
+            const r = Math.floor(Math.random()*4+1);
+            let view = "";
+            if(r ==1){
+                view = "1";
+            }
+            if(r ==2){
+                view = "2";
+            }
+            if(r ==3){
+                view = "3";
+            }
+            if(r ==4){
+                view = "4";
+            }
+            window.setTimeout(function(){
+                $("#pc_hands").html(view);
+                }, 1000);
+            
+            //コンピューターと自分の手による条件分岐の勝ち負け表示
+            if(r%mr==1){
+                result = "WIN";
+                var rate = 2;
+                var tbetvalue  = showMessage();
+            }else {
+                result = "LOSE"
+                var rate = 0;
+                var tbetvalue  = showMessage();
+               
+
+            }
+            
+            window.setTimeout(function(){
+                $("#judgment").html(result);
+                }, 1000);
+                
+            window.setTimeout(updatedmoney = () => {
+                var awardamount = rate*tbetvalue;
+                $("#award").html(rate*tbetvalue);
+                
+                  tinitial = initial - tbetvalue + awardamount;
+               return tinitial;
+    
+            },2000);
+
+            
+
+
+            window.setTimeout(function(){
+            initial = updatedmoney();
+             $("#initialmoney").html(initial)},3000);
+             console.log(initial)
+
+             if (initial < 0) {
+               
+          
+               $("#finish").css('display','block');
+               $("#finish").css('color','red');
+               $("#finish").css('fontSize','100px');
+               
+           }
+
+        
+        });
+
+        //自分の手がEVENの場合の場合分け
+        $("#even_btn").on("click",function () {
+            //自分の手
+            cview = "あなたの目は偶数ですね。";
+            mr = 2;
+            window.setTimeout(function(){
+                $("#own_hands").html(cview);
+                }, 0);
+            
+
+            //コンピューターの手
+            const r = Math.floor(Math.random()*4+1);
+            let view = "";
+            if(r ==1){
+                view = "1";
+            }
+            if(r ==2){
+                view = "2";
+            }
+            if(r ==3){
+                view = "3";
+            }
+            if(r ==4){
+                view = "4";
+            }
+            window.setTimeout(function(){
+                $("#pc_hands").html(view);
+                }, 1000);
+            
+            //コンピューターと自分の手による条件分岐の勝ち負け表示
+            if(r%mr==0){
+                result = "WIN";
+                var rate = 2;
+                var tbetvalue  = showMessage();
+            }else {
+                result = "LOSE"
+                var rate = 0;
+                var tbetvalue  = showMessage();
+               
+
+            }
+            
+            window.setTimeout(function(){
+                $("#judgment").html(result);
+                }, 1000);
+                
+            window.setTimeout(updatedmoney = () => {
+                var awardamount = rate*tbetvalue;
+                $("#award").html(rate*tbetvalue);
+                
+                  tinitial = initial - tbetvalue + awardamount;
+               return tinitial;
+    
+            },2000);
+
+            
+
+
+            window.setTimeout(function(){
+            initial = updatedmoney();
+             $("#initialmoney").html(initial)},3000);
+
+             if (initial < 0) {
+               
+          
+               $("#finish").css('display','block');
+               $("#finish").css('color','red');
+               $("#finish").css('fontSize','100px');
+               
+           }
+        
+        });
+        
+        
+        
+        
+
+        
+
+   
+   
+
+
+   
+    </script>
+
+
+
+    <!-- 以下Firebase -->
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBoyjdHrnIRLlxiBuA9r3oP1dwjYXcbfDU",
+    authDomain: "gschat-a1866.firebaseapp.com",
+    projectId: "gschat-a1866",
+    storageBucket: "gschat-a1866.appspot.com",
+    messagingSenderId: "180024880349",
+    appId: "1:180024880349:web:5334c58762d7f30c70bf34"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+ 
+</script>
+  
+
+</body>
+
+</html>
